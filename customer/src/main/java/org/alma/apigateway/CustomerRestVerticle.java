@@ -43,7 +43,7 @@ public class CustomerRestVerticle extends AbstractVerticle {
         .requestHandler(router::accept)
         .listen(7000, result -> {
           if (result.succeeded()) {
-        	  logger.info(" Appel on order api succeed");
+        	  logger.info(" Appel on customer api succeed");
         	  startFuture.complete();
           } else {
         	  startFuture.fail(result.cause());
