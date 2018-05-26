@@ -4,7 +4,7 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
 
-public class RestApiVertical extends DiscoveryAbstractVerticle {
+public class RestApiVerticle extends DiscoveryAbstractVerticle {
 	  /**
 	   * Create http server for the REST service.
 	   *

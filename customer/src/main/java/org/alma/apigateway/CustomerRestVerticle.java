@@ -7,7 +7,7 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
-public class CustomerRestVerticle extends RestApiVertical {
+public class CustomerRestVerticle extends RestApiVerticle {
 	  private static final String SERVICE_NAME = "customer-api";/**
 	 * Définition du Logger
 	 */
