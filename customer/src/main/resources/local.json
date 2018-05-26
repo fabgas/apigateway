@@ -1,0 +1,5 @@
+{
+  "api.name": "customer",
+  "customer.http.address": "0.0.0.0",
+  "customer.http.port": 7000
+}

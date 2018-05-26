@@ -1,6 +1,5 @@
 package org.alma.apigateway;
 
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.logging.Logger;
@@ -8,19 +7,8 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
-/**
- * Définition d'une api gateway.
- * Capture tous les appel REST et les redispatch vers les bons services
- * @author Fabrice
- *
- */
-import io.vertx.servicediscovery.ServiceDiscovery;
-import io.vertx.servicediscovery.ServiceDiscoveryOptions;
-public class OrderRestVerticle extends AbstractVerticle {
-	/**
-	 * Définition du discovery de service
-	 */
-	protected ServiceDiscovery discovery;
+public class OrderRestVerticle extends RestApiVertical {
+	  private static final String SERVICE_NAME = "order-api";/**
 	/**
 	 * Définition du Logger
 	 */
@@ -28,8 +16,7 @@ public class OrderRestVerticle extends AbstractVerticle {
 	@Override
 	public void start(Future<Void> startFuture) throws Exception {
 		
-		discovery = ServiceDiscovery.create(vertx, new ServiceDiscoveryOptions().setBackendConfiguration(config()));
-//		super.start(startFuture);
+		super.start(startFuture);
 		logger.info("Démarrage de l'API gateway");
 		// définition du router
 	    Router router = Router.router(vertx); 
@@ -38,17 +25,15 @@ public class OrderRestVerticle extends AbstractVerticle {
 	    // api dispatcher
 	    router.route("/api/order/*").handler(this::dispatchRequests);
 	    
-	    vertx
-        .createHttpServer()
-        .requestHandler(router::accept)
-        .listen(7001, result -> {
-          if (result.succeeded()) {
-        	  logger.info(" Appel on order api succeed");
-        	  startFuture.complete();
-          } else {
-        	  startFuture.fail(result.cause());
-          }
-        });
+	    // get HTTP host and port from configuration, or use default value
+	    String host = config().getString("order.http.address", "0.0.0.0");
+	    int port = config().getInteger("order.http.port", 8000);
+	    String apiname = config().getString("api.name");
+	    logger.info("order apiname:" + apiname+" host :" + host + ", port :"+port);
+	    logger.info("config "+config());
+	    createHttpServer(router, host, port)
+	      .compose(serverCreated -> publishHttpEndpoint(SERVICE_NAME, host, port))
+	      .setHandler(startFuture.completer());
 	}
 	private void dispatchRequests(RoutingContext context) {
 		logger.info("Appel de  gateway");

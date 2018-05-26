@@ -32,7 +32,7 @@ public class  CustomerRestVerticleTest {
   public void testMyApplication(TestContext context) {
     final Async async = context.async();
 
-    vertx.createHttpClient().getNow(7000, "localhost", "/api/order",
+    vertx.createHttpClient().getNow(8086, "localhost", "/api/customer",
      response -> {
       response.handler(body -> {
         context.assertTrue(body.toString().contains("Hello"));
