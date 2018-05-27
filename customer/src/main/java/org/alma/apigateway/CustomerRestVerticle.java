@@ -22,7 +22,7 @@ public class CustomerRestVerticle extends RestApiVerticle {
 	    // body handler
 	    router.route().handler(BodyHandler.create());
 	    // api dispatcher
-	    router.route("/api/customer/*").handler(this::dispatchRequests);
+	    router.route("/customer/*").handler(this::dispatchRequests);
 
 	    // get HTTP host and port from configuration, or use default value
 	    String host = config().getString("customer.http.address", "0.0.0.0");

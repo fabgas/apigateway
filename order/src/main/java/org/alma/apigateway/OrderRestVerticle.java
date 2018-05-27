@@ -35,11 +35,13 @@ public class OrderRestVerticle extends RestApiVerticle {
 	      .compose(serverCreated -> publishHttpEndpoint(SERVICE_NAME, host, port))
 	      .setHandler(startFuture.completer());
 	}
+	
 	private void dispatchRequests(RoutingContext context) {
 		logger.info("Appel de  gateway");
 		 HttpServerResponse response = context.response();
 		   response
 		       .putHeader("content-type", "text/html")
-		       .end("<h1>Hello from my first Vert.x 3 application</h1>");	  }
+		       .end("<h1>Hello from my first Vert.x 3 application</h1>");	 
+	}
 
 }

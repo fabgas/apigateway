@@ -64,6 +64,7 @@ public class DiscoveryAbstractVerticle extends AbstractVerticle {
 	      if (ar.succeeded()) {
 	        registeredRecords.add(record);
 	        logger.info("Service <" + ar.result().getName() + "> published");
+	        
 	        future.complete();
 	      } else {
 	        future.fail(ar.cause());
