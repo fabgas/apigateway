@@ -107,7 +107,8 @@ public class ApiGatewayVerticle extends RestApiVerticle {
 	   * @param client  relevant HTTP client
 	   */
 	  private void doDispatch(RoutingContext context, String path, HttpClient client, Future<Object> cbFuture) {
-	    HttpClientRequest toReq = client
+		  logger.info("client :"+client.toString());
+		  HttpClientRequest toReq = client
 	      .request(context.request().method(), path, response -> {
 	    	   logger.info("chemin"+path);
 	        response.bodyHandler(body -> {

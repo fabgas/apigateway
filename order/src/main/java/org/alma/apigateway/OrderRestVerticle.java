@@ -23,7 +23,7 @@ public class OrderRestVerticle extends RestApiVerticle {
 	    // body handler
 	    router.route().handler(BodyHandler.create());
 	    // api dispatcher
-	    router.route("/api/order/*").handler(this::dispatchRequests);
+	    router.route("/order/*").handler(this::dispatchRequests);
 	    
 	    // get HTTP host and port from configuration, or use default value
 	    String host = config().getString("order.http.address", "0.0.0.0");
