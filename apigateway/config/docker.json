@@ -1,0 +1,5 @@
+{
+ "api.name": "apigateway",
+  "gateway.http.address": "0.0.0.0",
+  "gateway.http.port": 7001
+}

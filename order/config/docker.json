@@ -1,0 +1,6 @@
+
+{
+  "api.name": "order",
+  "order.http.address": "order",
+  "order.http.port": 8000
+}

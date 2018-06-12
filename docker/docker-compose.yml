@@ -1,0 +1,19 @@
+version: "2"
+services:
+  customer:
+    image: microservice/customer  
+    expose:
+      - "7000"
+  order:
+    image: microservice/order  
+    expose:
+      - "8000"
+  apigateway:
+    image: microservice/apigateway
+    ports:
+      - "7001:7001"
+    environment:
+      - JAVA_OPTS="-Xms128m -Xmx256m"
+    links:
+      - customer
+      - order
